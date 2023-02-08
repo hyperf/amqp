@@ -139,4 +139,9 @@ class SwowIO extends AbstractIO
     {
         return 1;
     }
+
+    public function getReadTimeout (): float
+    {
+        return $this->readWriteTimeout;
+    }
 }
