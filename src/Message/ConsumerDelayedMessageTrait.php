@@ -14,6 +14,7 @@ namespace Hyperf\Amqp\Message;
 
 use Hyperf\Amqp\Builder\QueueBuilder;
 use PhpAmqpLib\Wire\AMQPTable;
+use Hyperf\Amqp\Builder\ExchangeBuilder;
 
 /**
  * @method string getQueue()
@@ -33,4 +34,13 @@ trait ConsumerDelayedMessageTrait
     {
         return 'delayed';
     }
+
+    public function getExchangeBuilder(): ExchangeBuilder
+    {
+        return (new ExchangeBuilder())
+            ->setExchange($this->getExchange())
+            ->setType('x-delayed-message')
+            ->setArguments(new AMQPTable(['x-delayed-type' => $this->getType()]));
+    }
+
 }
